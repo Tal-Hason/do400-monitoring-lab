@@ -24,6 +24,25 @@ pipeline {
             '''
             }
         }
+    stage('Security Scan') {
+        steps {
+            sh '''
+            oc process -f kubefiles/security-scan-template.yml \
+            -n thason-monitoring-lab \
+            -p QUAY_USER=YOUR_QUAY_USER \
+            -p QUAY_REPOSITORY=do400-monitoring-lab \
+            -p APP_NAME=calculator \
+            -p CVE_CODE=CVE-2021-23840 \
+            | oc replace --force \
+            -n thason-monitoring-lab -f -
+            '''
+            sh 'chmod +x ./scripts/check-job-state.sh'
+            sh '''
+            ./scripts/check-job-state.sh "calculator-trivy" \
+            "thason-monitoring-lab"
+            '''
+            }
+        }
     stage('Deploy') {
         steps {
             sh 'chmod +x ./scripts/redeploy.sh'
@@ -32,8 +51,9 @@ pipeline {
                 -d calculator \
                 -n thason-monitoring-lab
             '''
-}
-}   
+            }
+        }   
+ 
     }
     post {
         failure {
