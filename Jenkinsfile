@@ -12,9 +12,9 @@ pipeline {
             QUAY = credentials('MONITORING_LAB_QUAY_CREDENTIALS')
         }
         steps {
-            sh 'chmod +x /scripts/include-container-extensions.sh'
+            sh 'chmod +x ./scripts/include-container-extensions.sh'
             sh './scripts/include-container-extensions.sh'
-            sh 'chmod +x /scripts/build-and-push-image.sh'
+            sh 'chmod +x ./scripts/build-and-push-image.sh'
             sh '''
                 ./scripts/build-and-push-image.sh \
                 -b $BUILD_NUMBER \
