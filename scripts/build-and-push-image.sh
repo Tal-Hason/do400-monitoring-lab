@@ -6,7 +6,7 @@ do
         u) quay_user=${OPTARG};;
         p) quay_password=${OPTARG};;
         b) build_number=${OPTARG};;
-	      r) quay_repo=${OPTARG};;
+	    r) quay_repo=${OPTARG};;
     esac
 done
 
