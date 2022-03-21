@@ -23,7 +23,17 @@ pipeline {
                 -r do400-monitoring-lab
             '''
             }
-        }   
+        }
+    stage('Deploy') {
+        steps {
+            sh 'chmod +x ./scripts/redeploy.sh'
+            sh '''
+                ./scripts/redeploy.sh \
+                -d calculator \
+                -n thason-monitoring-lab
+            '''
+}
+}   
     }
     post {
         failure {
