@@ -25,4 +25,11 @@ pipeline {
             }
         }   
     }
+    post {
+        failure {
+            mail to: "team@example.com",
+                subject: "Pipeline failed: ${currentBuild.fullDisplayName}",
+                body: "The following pipeline failed: ${env.BUILD_URL}"
+        }
+    }
 }
