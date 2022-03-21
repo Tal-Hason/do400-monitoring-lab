@@ -29,7 +29,7 @@ pipeline {
             sh '''
             oc process -f kubefiles/security-scan-template.yml \
             -n thason-monitoring-lab \
-            -p QUAY_USER=YOUR_QUAY_USER \
+            -p QUAY_USER=thason \
             -p QUAY_REPOSITORY=do400-monitoring-lab \
             -p APP_NAME=calculator \
             -p CVE_CODE=CVE-2021-23840 \
